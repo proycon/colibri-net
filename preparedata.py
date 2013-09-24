@@ -24,7 +24,8 @@ def tokenise(resultbase, lang):
         os.system("ucto -Lgeneric -m -n " + resultbase + '.' + lang + ' > ' + resultbase + '.' + lang + '.tok')
 
 
-def process(lang, lang2):
+def process(data):
+    lang,lang2 = data
     archivefile = CORPUSDIR + '/' + lang+"-"+lang2 + ".txt.zip"
     resultbase = CORPUSDIR + "/OpenSubtitles2012." + lang + "-" + lang2
     print("Processing " + lang + "-" + lang2,file=sys.stderr)
