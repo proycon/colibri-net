@@ -14,7 +14,6 @@ specifictokenisers = ['en','fr','es','nl','de','it']
 
 CORPUSDIR = "/vol/bigdata/corpora/OpenSubtitles2012/"
 
-
 os.chdir(CORPUSDIR)
 
 
