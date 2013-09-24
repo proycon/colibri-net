@@ -43,7 +43,7 @@ def getpairs():
 
 threads = int(sys.argv[1])
 if __name__ == '__main__':
-    with Pool(processes=4) as pool:        # start 4 worker processes
-        pool.map(process, getpairs())      # prints "[0, 1, 4,..., 81]"
+    pool = Pool(processes=threads)        # start 4 worker processes
+    pool.map(process, list(getpairs()))      # prints "[0, 1, 4,..., 81]"
 
 
