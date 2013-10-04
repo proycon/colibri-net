@@ -36,20 +36,21 @@ def process(data):
     resultbase = CORPUSDIR + "/OpenSubtitles2012." + lang + "-" + lang2
     expresultbase = EXPDIR + "/OpenSubtitles2012." + lang + "-" + lang2
     print("Processing pair #" + str(num) + " -- " + lang + "-" + lang2 + " -- " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),file=sys.stderr)
-    os.system("unzip " + archivefile)
-    os.system("cp " + resultbase + "* " + EXPDIR)
+    r = os.system("unzip -oq " + archivefile)
+    if r:
+        print("Extraction failure",file=sys.stderr)
+        return
+    os.system("cp -f " + resultbase + "* " + EXPDIR)
     if not os.path.exists(expresultbase + '.' + lang + '.tok.gz'):
         tokenise(expresultbase, lang)
+        os.system("rm " + expresultbase + "." + lang)
+        os.system("gzip " + expresultbase + "." + lang + ".log")
+        os.system("gzip " + expresultbase + "." + lang + ".tok")
     if not os.path.exists(expresultbase + '.' + lang2 + '.tok.gz'):
         tokenise(expresultbase, lang2)
-    #removing untokenised sources
-    os.system("rm " + expresultbase + "." + lang)
-    os.system("rm " + expresultbase + "." + lang2)
-    #gzipping the rest
-    os.system("gzip " + expresultbase + "." + lang + ".log")
-    os.system("gzip " + expresultbase + "." + lang + ".tok")
-    os.system("gzip " + expresultbase + "." + lang2 + ".log")
-    os.system("gzip " + expresultbase + "." + lang2 + ".tok")
+        os.system("rm " + expresultbase + "." + lang2)
+        os.system("gzip " + expresultbase + "." + lang2 + ".log")
+        os.system("gzip " + expresultbase + "." + lang2 + ".tok")
     print("Done " + lang + "-" + lang2 + " -- " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),file=sys.stderr)
 
 def getpairs():
