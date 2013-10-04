@@ -16,7 +16,7 @@ specifictokenisers = ['en','fr','es','nl','de','it']
 CORPUSDIR = "/vol/bigdata/corpora/OpenSubtitles2012/"
 EXPDIR = "/scratch/proycon/colibri-net/"
 
-os.chdir(CORPUSDIR)
+os.chdir(EXPDIR)
 
 
 def tokenise(resultbase, lang):
@@ -33,14 +33,15 @@ def tokenise(resultbase, lang):
 def process(data):
     num, lang,lang2 = data
     archivefile = CORPUSDIR + '/' + lang+"-"+lang2 + ".txt.zip"
-    resultbase = CORPUSDIR + "/OpenSubtitles2012." + lang + "-" + lang2
+    exparchivefile = CORPUSDIR + '/' + lang+"-"+lang2 + ".txt.zip"
     expresultbase = EXPDIR + "/OpenSubtitles2012." + lang + "-" + lang2
     print("Processing pair #" + str(num) + " -- " + lang + "-" + lang2 + " -- " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),file=sys.stderr)
-    r = os.system("unzip -oq " + archivefile)
+    r = os.system("cp -f " + archivefile + " " + exparchivefile)
+    r = os.system("unzip -oq " + exparchivefile)
     if r:
         print("Extraction failure",file=sys.stderr)
         return
-    os.system("cp -f " + resultbase + "* " + EXPDIR)
+    os.system("rm " + EXPDIR + '/' + lang+"-"+lang2 + ".txt.zip")
     if not os.path.exists(expresultbase + '.' + lang + '.tok.gz'):
         tokenise(expresultbase, lang)
         os.system("rm " + expresultbase + "." + lang)
