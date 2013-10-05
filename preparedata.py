@@ -33,7 +33,7 @@ def tokenise(resultbase, lang):
 def process(data):
     num, lang,lang2 = data
     archivefile = CORPUSDIR + '/' + lang+"-"+lang2 + ".txt.zip"
-    exparchivefile = CORPUSDIR + '/' + lang+"-"+lang2 + ".txt.zip"
+    exparchivefile = EXPDIR + '/' + lang+"-"+lang2 + ".txt.zip"
     expresultbase = EXPDIR + "/OpenSubtitles2012." + lang + "-" + lang2
     print("Processing pair #" + str(num) + " -- " + lang + "-" + lang2 + " -- " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),file=sys.stderr)
     r = os.system("cp -f " + archivefile + " " + exparchivefile)
