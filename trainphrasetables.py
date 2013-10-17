@@ -11,8 +11,8 @@ from multiprocessing import Pool
 CORPUSDIR = "/vol/bigdata/corpora/OpenSubtitles2012/"
 EXPDIR = "/scratch/proycon/colibri-net/"
 
-EXEC_MOSES_TRAINMODEL = ''
-PATH_MOSES_EXTERNALBIN = ''
+EXEC_MOSES_TRAINMODEL = '/vol/customopt/machine-translation/src/mosesdecoder/scripts/training/train-model.perl'
+PATH_MOSES_EXTERNALBIN = '/vol/customopt/machine-translation/bin'
 
 os.chdir(EXPDIR)
 
