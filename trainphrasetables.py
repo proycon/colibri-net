@@ -48,6 +48,9 @@ def process(data):
             shutil.rmtree(lang+'-'+lang2+'.work')
 
         print("Done " + lang + "-" + lang2 + " -- " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),file=sys.stderr)
+    else:
+        print("Not found: " + corpus1_orig,file=sys.stderr)
+        print("Not found: " + corpus2_orig,file=sys.stderr)
 
 
 def main():
@@ -64,6 +67,7 @@ def main():
     pool = Pool(processes=threads)
     pairs = list(enumerate(pairs))
     print("Found ", len(pairs), " language pairs",file=sys.stderr)
+    print(pairs)
     pool.map(process, pairs)      # prints "[0, 1, 4,..., 81]"
 
 
