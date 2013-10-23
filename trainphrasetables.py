@@ -17,7 +17,7 @@ PATH_MOSES_EXTERNALBIN = '/vol/customopt/machine-translation/bin'
 os.chdir(EXPDIR)
 
 def process(data):
-    num, lang,lang2 = data
+    num, (lang,lang2) = data
     corpus1_orig = CORPUSDIR + "/OpenSubtitles2012." + lang + "-" + lang2 + '.' + lang + '.tok.gz'
     corpus2_orig = CORPUSDIR + "/OpenSubtitles2012." + lang + "-" + lang2 + '.' + lang2 + '.tok.gz'
     try:
