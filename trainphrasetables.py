@@ -5,7 +5,7 @@ import sys
 import os
 import glob
 import datetime
-import shutils
+import shutil
 from multiprocessing import Pool
 
 CORPUSDIR = "/vol/bigdata/corpora/OpenSubtitles2012/tokenized/"
@@ -45,7 +45,7 @@ def process(data):
             print("MOSES FAILED!",file=sys.stderr)
         else:
             os.chdir('..')
-            shutils.rmtree(lang+'-'+lang2+'.work')
+            shutil.rmtree(lang+'-'+lang2+'.work')
 
         print("Done " + lang + "-" + lang2 + " -- " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),file=sys.stderr)
 
