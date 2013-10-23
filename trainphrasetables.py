@@ -8,7 +8,7 @@ import datetime
 import shutils
 from multiprocessing import Pool
 
-CORPUSDIR = "/vol/bigdata/corpora/OpenSubtitles2012/"
+CORPUSDIR = "/vol/bigdata/corpora/OpenSubtitles2012/tokenized/"
 EXPDIR = "/scratch/proycon/colibri-net/"
 
 EXEC_MOSES_TRAINMODEL = '/vol/customopt/machine-translation/src/mosesdecoder/scripts/training/train-model.perl'
@@ -39,7 +39,7 @@ def process(data):
 
         os.chdir(EXPDIR + "/"+ lang + "-" + lang2+'.work/')
 
-        r = os.system(EXEC_MOSES_TRAINMODEL + ' -external-bin-dir ' + PATH_MOSES_EXTERNALBIN + " -root-dir . --corpus corpus --f " + lang + " --e " + lang2 + ' --first-step 1 --last-step 8 >&2 2> train-model.log')
+        r = os.system(EXEC_MOSES_TRAINMODEL + ' -external-bin-dir ' + PATH_MOSES_EXTERNALBIN + " -root-dir . --corpus corpus --f " + lang + " --e " + lang2 + ' --first-step 1 --last-step 8 >&2 2> train-model-' + lang + '-' + lang2 + '.log')
         os.rename("model/phrase-table.gz","../OpenSubtitles2012." + lang + "-" + lang2 + ".phrasetable.gz")
         if r:
             print("MOSES FAILED!",file=sys.stderr)
