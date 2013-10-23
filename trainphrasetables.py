@@ -60,8 +60,8 @@ def main():
     pairs = set()
     for filename in glob.glob(CORPUSDIR + '/*.tok.gz'):
         fields = os.path.basename(filename).split('.')
-        L1 = fields[0].split('-')[0]
-        L2 = fields[1].split('-')[0]
+        L1 = fields[1].split('-')[0]
+        L2 = fields[1].split('-')[1]
         pairs.add( (L1,L2) )
 
     pool = Pool(processes=threads)
