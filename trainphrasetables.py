@@ -28,6 +28,7 @@ def process(data):
     corpus2 = EXPDIR + "/" + lang + "-" + lang2 + ".work/OpenSubtitles2012." + lang + "-" + lang2 + '.' + lang2 + '.tok.gz'
     if os.path.exists(corpus1_orig) and os.path.exists(corpus2_orig):
         print("Processing pair #" + str(num) + " -- " + lang + "-" + lang2 + " -- " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),file=sys.stderr)
+        os.chdir(EXPDIR + "/"+ lang + "-" + lang2+'.work/')
         r = os.system("cp -f " + corpus1_orig + " " + corpus1)
         r = os.system("cp -f " + corpus2_orig + " " + corpus2)
         r = os.system("gunzip " + corpus1)
@@ -37,7 +38,6 @@ def process(data):
         os.rename(corpus1, "corpus." + lang)
         os.rename(corpus2, "corpus." + lang2)
 
-        os.chdir(EXPDIR + "/"+ lang + "-" + lang2+'.work/')
 
         r = os.system(EXEC_MOSES_TRAINMODEL + ' -external-bin-dir ' + PATH_MOSES_EXTERNALBIN + " -root-dir . --corpus corpus --f " + lang + " --e " + lang2 + ' --first-step 1 --last-step 8 >&2 2> train-model-' + lang + '-' + lang2 + '.log')
         os.rename("model/phrase-table.gz","../OpenSubtitles2012." + lang + "-" + lang2 + ".phrasetable.gz")
