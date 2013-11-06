@@ -65,7 +65,7 @@ def main():
     pairs = set()
     for filename in glob.glob(CORPUSDIR + '/*.tok.gz'):
         fields = os.path.basename(filename).split('.')
-        L1 = fields[0].split('-')[0]
+        L1 = fields[1].split('-')[0]
         L2 = fields[1].split('-')[1]
         if not os.path.exists(EXPDIR + "/OpenSubtitles2012." + L1 + "-" + L2 + ".phrasetable.gz"):
             print("Queuing language pair " + L1 + "-"  +L2,file=sys.stderr)
