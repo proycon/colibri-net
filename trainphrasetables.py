@@ -8,7 +8,7 @@ import datetime
 import shutils
 from multiprocessing import Pool
 
-CORPUSDIR = "/vol/bigdata/corpora/OpenSubtitles2012/"
+CORPUSDIR = "/vol/bigdata/corpora/OpenSubtitles2012/tokenizer/"
 EXPDIR = "/scratch/proycon/colibri-net/"
 
 EXEC_MOSES_TRAINMODEL = '/vol/customopt/machine-translation/src/mosesdecoder/scripts/training/train-model.perl'
