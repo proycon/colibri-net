@@ -40,7 +40,11 @@ def process(data):
         os.chdir(EXPDIR + "/"+ lang + "-" + lang2+'.work/')
 
         r = os.system(EXEC_MOSES_TRAINMODEL + ' -external-bin-dir ' + PATH_MOSES_EXTERNALBIN + " -root-dir . --corpus corpus --f " + lang + " --e " + lang2 + ' --first-step 1 --last-step 8 >&2 2> train-model.log')
-        os.rename("model/phrase-table.gz","../OpenSubtitles2012." + lang + "-" + lang2 + ".phrasetable.gz")
+        try:
+            os.rename("model/phrase-table.gz","../OpenSubtitles2012." + lang + "-" + lang2 + ".phrasetable.gz")
+        except:
+            print("NO PHRASETABLE OUTPUT FOUND!",file=sys.stderr)
+            r = 1
         if r:
             print("MOSES FAILED!",file=sys.stderr)
         else:
@@ -59,12 +63,16 @@ def main():
         fields = os.path.basename(filename).split('.')
         L1 = fields[0].split('-')[0]
         L2 = fields[1].split('-')[0]
-        pairs.add( (L1,L2) )
+        if not os.path.exists(EXPDIR + "/OpenSubtitles2012." + L1 + "-" + L2 + ".phrasetable.gz"):
+            print("Queuing language pair " + L1 + "-"  +L2,file=sys.stderr)
+            pairs.add( (L1,L2) )
+        else:
+            print("Language pair " + L1 + "-" + L2 + " already done",file=sys.stderr)
 
     pool = Pool(processes=threads)
     pairs = list(enumerate(pairs))
     print("Found ", len(pairs), " language pairs",file=sys.stderr)
-    pool.map(process, pairs)      # prints "[0, 1, 4,..., 81]"
+    pool.map(process, pairs)
 
 
 
